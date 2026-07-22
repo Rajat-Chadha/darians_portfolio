@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darian | STEM Summer Camp Portfolio 2026 - UC</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        ucRed: '#E00122',
+                        ucRedGlow: '#FF1A3C',
+                        cyberCyan: '#00F0FF',
+                        darkBg: '#090D16',
+                        darkCard: '#121826',
+                        darkBorder: '#2A344A'
+                    },
+                    fontFamily: {
+                        outfit: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Icons & 3D Library -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #090D16;
+            color: #F3F4F6;
+            overflow-x: hidden;
+        }
+
+        /* Tech Cyber Grid Background */
+        .bg-cyber-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        .glow-effect-red {
+            box-shadow: 0 0 25px rgba(224, 1, 34, 0.35);
+        }
+
+        .glow-effect-cyan {
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.3);
+        }
+
+        .text-gradient-uc {
+            background: linear-gradient(135deg, #FF3355 0%, #E00122 50%, #FF7300 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-cyan {
+            background: linear-gradient(135deg, #00F0FF 0%, #7000FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-card {
+            background: rgba(18, 24, 38, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(224, 1, 34, 0.4);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090D16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1F293D;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E00122;
+        }
+    </style>
+</head>
+<body class="bg-cyber-grid min-h-screen selection:bg-ucRed selection:text-white">
+
+    <!-- Top Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-card border-b border-gray-800/80 px-4 lg:px-8 py-3 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Logo / Brand -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-ucRed to-orange-500 p-0.5 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                    <div class="w-full h-full bg-darkBg rounded-[10px] flex items-center justify-center font-black text-ucRed font-mono text-xl">
+                        D
+                    </div>
+                </div>
+                <div>
+                    <span class="text-lg font-black tracking-wider uppercase text-white group-hover:text-ucRed transition-colors">DARIAN</span>
+                    <span class="block text-[10px] text-gray-400 font-mono tracking-widest uppercase">UC STEM CAMP '26</span>
+                </div>
+            </a>
+
+            <!-- Nav Links (Desktop) -->
+            <div class="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-300">
+                <a href="#about" class="hover:text-ucRed transition-colors">About Me</a>
+                <a href="#skills" class="hover:text-ucRed transition-colors">Skills Learned</a>
+                <a href="#cad-project" class="hover:text-ucRed transition-colors">3D Fish CAD</a>
+                <a href="#gallery" class="hover:text-ucRed transition-colors">Hands-On Gallery</a>
+                <a href="#growth" class="hover:text-ucRed transition-colors">Growth & Challenge</a>
+                <a href="#review" class="hover:text-ucRed transition-colors">Checklist</a>
+            </div>
+
+            <!-- UC Badge, CTA & Mobile Toggle -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-ucRed/10 border border-ucRed/30 text-xs font-mono text-ucRed">
+                    <span class="w-2 h-2 rounded-full bg-ucRed animate-pulse"></span> Univ. of Cincinnati
+                </span>
+                <a href="#presentation" class="px-3 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-ucRed to-red-700 text-white font-bold text-xs uppercase tracking-wider hover:opacity-90 shadow-lg shadow-ucRed/20 transition-all flex items-center gap-1.5 sm:gap-2">
+                    <i data-lucide="presentation" class="w-4 h-4"></i> Present
+                </a>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-xl bg-gray-800 text-white border border-gray-700 hover:bg-gray-700">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden pt-4 pb-2 border-t border-gray-800/80 mt-3 flex flex-col space-y-3 font-semibold text-sm text-gray-200">
+            <a href="#about" onclick="toggleMobileMenu()" class="px-2 py-1 hover:text-ucRed transition-colors">About Me</a>
+            <a href="#skills" onclick="toggleMobileMenu()" class="px-2 py-1 hover:text-ucRed transition-colors">Skills Learned</a>
+            <a href="#cad-project" onclick="toggleMobileMenu()" class="px-2 py-1 hover:text-ucRed transition-colors">3D Fish CAD Project</a>
+            <a href="#gallery" onclick="toggleMobileMenu()" class="px-2 py-1 hover:text-ucRed transition-colors">Hands-On Gallery</a>
+            <a href="#growth" onclick="toggleMobileMenu()" class="px-2 py-1 hover:text-ucRed transition-colors">Growth & Challenge</a>
+            <a href="#review" onclick="toggleMobileMenu()" class="px-2 py-1 hover:text-ucRed transition-colors">Checklist</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="pt-32 pb-20 px-4 lg:px-8 max-w-7xl mx-auto relative overflow-hidden">
+        <!-- Glowing background blobs -->
+        <div class="absolute top-1/4 left-10 w-72 h-72 bg-ucRed/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-cyberCyan/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Info Column -->
+            <div class="lg:col-span-7 space-y-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-800/80 border border-gray-700 text-xs font-mono text-gray-300">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-ucRed"></i> 18-Year-Old STEM Innovator & CAD Designer
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-white leading-none">
+                    ENGINEERING THE FUTURE IN <span class="text-gradient-uc block sm:inline">3D & CAD</span>
+                </h1>
+
+                <p class="text-gray-400 text-base sm:text-lg max-w-2xl leading-relaxed">
+                    Welcome to my official <strong class="text-white">STEM Summer Camp Portfolio</strong> at the 
+                    <span class="text-ucRed font-semibold">University of Cincinnati</span>. Over 6 intensive weeks, I designed 3D models from scratch, mastered SolidWorks and Bambu Studio slicers, and created complex CAD projects like my featured 3D Fish!
+                </p>
+
+                <!-- Quick Stats Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4">
+                    <div class="glass-card p-4 rounded-2xl text-center border-l-2 border-l-ucRed">
+                        <span class="block text-2xl font-black text-white font-mono">18</span>
+                        <span class="text-xs text-gray-400 font-medium uppercase tracking-wider">Years Old</span>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl text-center border-l-2 border-l-cyberCyan">
+                        <span class="block text-2xl font-black text-white font-mono">6 WKS</span>
+                        <span class="text-xs text-gray-400 font-medium uppercase tracking-wider">UC STEM Camp</span>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl text-center border-l-2 border-l-orange-500">
+                        <span class="block text-2xl font-black text-white font-mono">100%</span>
+                        <span class="text-xs text-gray-400 font-medium uppercase tracking-wider">Original CAD</span>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl text-center border-l-2 border-l-purple-500">
+                        <span class="block text-2xl font-black text-white font-mono">SolidWorks</span>
+                        <span class="text-xs text-gray-400 font-medium uppercase tracking-wider">3D Slicing</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="#cad-project" class="px-6 py-3.5 rounded-xl bg-ucRed hover:bg-red-700 text-white font-bold text-sm flex items-center gap-2 transition-all glow-effect-red">
+                        <i data-lucide="box" class="w-5 h-5"></i> View My 3D Fish Project
+                    </a>
+                    <a href="#about" class="px-6 py-3.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 font-bold text-sm flex items-center gap-2 transition-all">
+                        <i data-lucide="user" class="w-5 h-5"></i> Read My Story
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Face Picture Card -->
+            <div class="lg:col-span-5 relative">
+                <div class="relative group">
+                    <!-- Glowing frame border -->
+                    <div class="absolute -inset-1.5 bg-gradient-to-r from-ucRed via-orange-500 to-cyberCyan rounded-3xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                    
+                    <div class="relative glass-card rounded-3xl overflow-hidden p-3 bg-darkCard">
+                        <div class="relative rounded-2xl overflow-hidden aspect-[4/5] bg-gray-900">
+                            <!-- Direct reference to uploaded face photo -->
+                            <img src="image_17.png" 
+                                 alt="Darian at computer monitor with CAD model" 
+                                 class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                                 onerror="this.onerror=null; this.src='image_8.png';">
+                            
+                            <!-- Overlaid Tech Badge -->
+                            <div class="absolute bottom-4 left-4 right-4 glass-card p-4 rounded-2xl border border-white/10 backdrop-blur-md">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h3 class="text-white font-black text-lg">DARIAN</h3>
+                                        <p class="text-xs text-ucRed font-mono">18 Y/O Lead Designer & Student</p>
+                                    </div>
+                                    <span class="w-10 h-10 rounded-xl bg-ucRed/20 flex items-center justify-center text-ucRed">
+                                        <i data-lucide="cpu" class="w-5 h-5"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- STEP 1 & 2: ABOUT ME & CAMP OVERVIEW -->
+    <section id="about" class="py-20 px-4 lg:px-8 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <div>
+                <div class="text-xs font-mono text-ucRed uppercase tracking-widest mb-2 flex items-center gap-2">
+                    <span class="w-8 h-[2px] bg-ucRed"></span> STEP 1 & 2: INTRODUCTION
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-black text-white">ABOUT MYSELF</h2>
+            </div>
+            <p class="text-gray-400 text-sm max-w-md mt-4 md:mt-0 font-mono">
+                "Turning creative ideas into 3D printable reality at UC."
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Card 1: My Interests -->
+            <div class="glass-card p-8 rounded-3xl relative overflow-hidden group">
+                <div class="w-12 h-12 rounded-2xl bg-ucRed/10 border border-ucRed/30 flex items-center justify-center text-ucRed mb-6 group-hover:scale-110 transition-transform">
+                    <i data-lucide="heart" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">My STEM Interests</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    I am passionate about 3D modeling, spatial prototyping, CAD engineering tools, and bringing physical creations to life using modern additive manufacturing (3D printing).
+                </p>
+            </div>
+
+            <!-- Card 2: Why UC Summer Camp -->
+            <div class="glass-card p-8 rounded-3xl relative overflow-hidden group">
+                <div class="w-12 h-12 rounded-2xl bg-cyberCyan/10 border border-cyberCyan/30 flex items-center justify-center text-cyberCyan mb-6 group-hover:scale-110 transition-transform">
+                    <i data-lucide="compass" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Why I Attended Camp</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    I enrolled in the STEM Summer Camp at the University of Cincinnati to gain real-world experience on a college campus, learn professional software like SolidWorks, and explore tech careers.
+                </p>
+            </div>
+
+            <!-- Card 3: What I Hoped to Learn -->
+            <div class="glass-card p-8 rounded-3xl relative overflow-hidden group">
+                <div class="w-12 h-12 rounded-2xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400 mb-6 group-hover:scale-110 transition-transform">
+                    <i data-lucide="target" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Favorite Topic & Goals</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    My favorite STEM topic is <strong>3D Designing</strong>. I hoped to learn how to design complex structures from my own mind and properly slice them for high-precision 3D printing.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEP 3: SKILLS & TOPICS LEARNED -->
+    <section id="skills" class="py-20 px-4 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/60">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <div class="text-xs font-mono text-cyberCyan uppercase tracking-widest mb-2">STEP 3: CORE COMPETENCIES</div>
+            <h2 class="text-3xl sm:text-5xl font-black text-white">SKILLS I MASTERED</h2>
+            <p class="text-gray-400 text-sm mt-3">Three main core engineering skills developed over the six-week camp.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Skill 1 -->
+            <div class="glass-card p-8 rounded-3xl border border-gray-800 relative hover:-translate-y-2 transition-all duration-300">
+                <div class="flex items-center justify-between mb-6">
+                    <span class="text-xs font-mono text-ucRed bg-ucRed/10 px-3 py-1 rounded-full border border-ucRed/20">SKILL 01</span>
+                    <i data-lucide="layers" class="w-8 h-8 text-ucRed"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">3D Designing & CAD</h3>
+                <div class="space-y-3 text-sm text-gray-400">
+                    <p><strong class="text-gray-200">What I Learned:</strong> Building complex 3D shapes, manipulating geometries, and extruding features in SolidWorks.</p>
+                    <p><strong class="text-gray-200">How I Learned It:</strong> Designing daily models and creating my custom 3D Fish project.</p>
+                    <p><strong class="text-gray-200">Future Use:</strong> Utilizing CAD in future college classes and landing an engineering job!</p>
+                </div>
+            </div>
+
+            <!-- Skill 2 -->
+            <div class="glass-card p-8 rounded-3xl border border-gray-800 relative hover:-translate-y-2 transition-all duration-300">
+                <div class="flex items-center justify-between mb-6">
+                    <span class="text-xs font-mono text-cyberCyan bg-cyberCyan/10 px-3 py-1 rounded-full border border-cyberCyan/20">SKILL 02</span>
+                    <i data-lucide="printer" class="w-8 h-8 text-cyberCyan"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">3D Slicing & Preparation</h3>
+                <div class="space-y-3 text-sm text-gray-400">
+                    <p><strong class="text-gray-200">What I Learned:</strong> Operating Bambu Studio slicer software, configuring tree supports, density, and wall layers.</p>
+                    <p><strong class="text-gray-200">How I Learned It:</strong> Preparing my 3D Fish for the Bambu Textured PEI Plate with customized supports.</p>
+                    <p><strong class="text-gray-200">Future Use:</strong> Rapid prototyping for physical gadgets, keychains, and custom toys.</p>
+                </div>
+            </div>
+
+            <!-- Skill 3 -->
+            <div class="glass-card p-8 rounded-3xl border border-gray-800 relative hover:-translate-y-2 transition-all duration-300">
+                <div class="flex items-center justify-between mb-6">
+                    <span class="text-xs font-mono text-purple-400 bg-purple-500/10 px-3 py-1 rounded-full border border-purple-500/20">SKILL 03</span>
+                    <i data-lucide="pen-tool" class="w-8 h-8 text-purple-400"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">Spatial Sketching & Projections</h3>
+                <div class="space-y-3 text-sm text-gray-400">
+                    <p><strong class="text-gray-200">What I Learned:</strong> Orthographic views (Top, Front, Side), coded plans, isometric sketching, and 3D pen modeling.</p>
+                    <p><strong class="text-gray-200">How I Learned It:</strong> Snapping cube building, clear projection box challenges, and grid pen exercises.</p>
+                    <p><strong class="text-gray-200">Future Use:</strong> Visualizing complex mechanical blueprints before starting software design.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEP 4 & 9: FEATURED CAD CREATION & BEST WORK -->
+    <section id="cad-project" class="py-20 px-4 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/60">
+        <div class="glass-card rounded-3xl p-5 sm:p-8 lg:p-12 border-2 border-ucRed/30 relative overflow-hidden">
+            <!-- Background Glow -->
+            <div class="absolute top-0 right-0 w-96 h-96 bg-ucRed/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="flex flex-col lg:flex-row items-start justify-between gap-6 mb-8">
+                <div>
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-ucRed/20 border border-ucRed text-ucRed font-mono text-xs mb-3">
+                        <i data-lucide="award" class="w-4 h-4"></i> FEATURED CAD MASTERPIECE (STEP 4 & 9)
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white">"DARIAN'S 3D FISH PROJECT"</h2>
+                    <p class="text-gray-400 text-sm sm:text-base mt-2">Independent CAD Design Project created from scratch during camp</p>
+                </div>
+
+                <div class="flex flex-wrap gap-2 bg-darkBg/80 p-1.5 rounded-2xl border border-gray-800 w-full sm:w-auto justify-center">
+                    <button onclick="switchView('slicer')" id="btn-slicer" class="px-3 sm:px-4 py-2 rounded-xl text-xs font-bold text-white bg-ucRed transition-all flex-1 sm:flex-initial">
+                        Bambu Slicer
+                    </button>
+                    <button onclick="switchView('cad')" id="btn-cad" class="px-3 sm:px-4 py-2 rounded-xl text-xs font-bold text-gray-400 hover:text-white transition-all flex-1 sm:flex-initial">
+                        SolidWorks
+                    </button>
+                    <button onclick="switchView('3d')" id="btn-3d" class="px-3 sm:px-4 py-2 rounded-xl text-xs font-bold text-gray-400 hover:text-white transition-all flex-1 sm:flex-initial flex items-center justify-center gap-1">
+                        <i data-lucide="rotate-3d" class="w-3.5 h-3.5"></i> Interactive 3D
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Project Visual Display Frame -->
+                <div class="lg:col-span-7 bg-black/60 rounded-2xl border border-gray-800 overflow-hidden relative aspect-video flex items-center justify-center">
+                    
+                    <!-- View 1: Bambu Studio Slicer -->
+                    <div id="view-slicer" class="w-full h-full relative">
+                        <img src="image_16.png" 
+                             alt="Bambu Studio Slicer with 3D Fish and tree supports" 
+                             class="w-full h-full object-contain bg-slate-950">
+                        <div class="absolute bottom-3 left-3 bg-darkBg/90 backdrop-blur px-3 py-1.5 rounded-lg border border-gray-700 text-[11px] sm:text-xs font-mono text-cyberCyan">
+                            Bambu Studio | Slicing Result with Supports
+                        </div>
+                    </div>
+
+                    <!-- View 2: SolidWorks CAD Model -->
+                    <div id="view-cad" class="w-full h-full relative hidden">
+                        <img src="image_17.png" 
+                             alt="SolidWorks 3D Fish model on monitor" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute bottom-3 left-3 bg-darkBg/90 backdrop-blur px-3 py-1.5 rounded-lg border border-gray-700 text-[11px] sm:text-xs font-mono text-ucRed">
+                            SolidWorks 3D Workspace View
+                        </div>
+                    </div>
+
+                    <!-- View 3: Interactive 3D Canvas -->
+                    <div id="view-3d" class="w-full h-full relative hidden bg-gradient-to-b from-gray-950 to-slate-900">
+                        <div id="three-canvas-container" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
+                        <div class="absolute bottom-3 left-3 bg-darkBg/90 backdrop-blur px-3 py-1.5 rounded-lg border border-gray-700 text-[11px] sm:text-xs font-mono text-green-400 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> Drag / Touch to Rotate 3D Fish
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Project Breakdown Details -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="glass-card p-5 rounded-2xl">
+                        <h4 class="text-xs font-mono text-gray-400 uppercase tracking-wider mb-1">Geometries & Shapes Used</h4>
+                        <p class="text-white font-semibold text-sm">Ellipsoids / Spheres for main body, custom dorsal & tail fins, side fins, and eye socket cuts.</p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl">
+                        <h4 class="text-xs font-mono text-gray-400 uppercase tracking-wider mb-1">CAD Tools & Software</h4>
+                        <p class="text-white font-semibold text-sm">SolidWorks CAD (Extrusions, Fillets, Mirroring) + Bambu Studio Slicer (Tree Supports & PEI Plate Setup).</p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-l-ucRed">
+                        <h4 class="text-xs font-mono text-ucRed uppercase tracking-wider mb-1">Why This Project Is Special</h4>
+                        <p class="text-white font-semibold text-sm">"Because it's super cool and it's 100% my own original creation designed from my imagination!"</p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-l-cyberCyan">
+                        <h4 class="text-xs font-mono text-cyberCyan uppercase tracking-wider mb-1">Future Enhancement</h4>
+                        <p class="text-white font-semibold text-sm">"I want to add 3D printed water bubbles floating out of the fish's mouth!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HANDS-ON GALLERY SECTION -->
+    <section id="gallery" class="py-20 px-4 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/60">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <div>
+                <div class="text-xs font-mono text-ucRed uppercase tracking-widest mb-2">CAMP ACTIVITIES & CREATIONS</div>
+                <h2 class="text-3xl sm:text-5xl font-black text-white">HANDS-ON GALLERY</h2>
+            </div>
+            <p class="text-gray-400 text-sm max-w-md mt-4 md:mt-0 font-mono">Tap any photo to open full resolution</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Photo 1: 3D Pen Fabrication -->
+            <div onclick="openLightbox('image_12.png', '3D Pen Pattern Fabrication', 'Practicing line precision, geometric grid building, and symmetry with melted filament.')" 
+                 class="glass-card rounded-2xl overflow-hidden group cursor-pointer border border-gray-800 hover:border-ucRed/50 transition-all">
+                <div class="aspect-video overflow-hidden relative">
+                    <img src="image_12.png" 
+                         alt="Darian using 3D Pen" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                         onerror="this.onerror=null; this.src='image_7.png';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-transparent to-transparent opacity-80"></div>
+                    <span class="absolute bottom-3 left-3 text-xs font-mono bg-ucRed/80 text-white px-2.5 py-1 rounded-md">3D Pen Practice</span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold text-white text-base">3D Pen Precision Work</h3>
+                    <p class="text-gray-400 text-xs mt-1">Drawing 2D grid templates and building upwards into physical structures.</p>
+                </div>
+            </div>
+
+            <!-- Photo 2: Orthographic Views & Coded Plans -->
+            <div onclick="openLightbox('image_6.png', 'Orthographic & Coded Plans', 'Translating 3D cube configurations into Top, Front, and Side orthographic views on paper.')" 
+                 class="glass-card rounded-2xl overflow-hidden group cursor-pointer border border-gray-800 hover:border-cyberCyan/50 transition-all">
+                <div class="aspect-video overflow-hidden relative">
+                    <img src="image_6.png" 
+                         alt="Darian working on orthographic drawings" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                         onerror="this.onerror=null; this.src='image_9.png';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-transparent to-transparent opacity-80"></div>
+                    <span class="absolute bottom-3 left-3 text-xs font-mono bg-cyberCyan/80 text-black font-bold px-2.5 py-1 rounded-md">Orthographic Drawings</span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold text-white text-base">Coded Plans & Grid Projections</h3>
+                    <p class="text-gray-400 text-xs mt-1">Building spatial reasoning skills using snapping block combinations.</p>
+                </div>
+            </div>
+
+            <!-- Photo 3: Teamwork & Projection Box -->
+            <div onclick="openLightbox('image_11.png', 'Group Collaboration with Rajat', 'Collaborating with teammates and mentor Rajat around the clear 3D projection box.')" 
+                 class="glass-card rounded-2xl overflow-hidden group cursor-pointer border border-gray-800 hover:border-purple-500/50 transition-all">
+                <div class="aspect-video overflow-hidden relative">
+                    <img src="image_11.png" 
+                         alt="Darian collaborating with team" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                         onerror="this.onerror=null; this.src='image_13.png';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-transparent to-transparent opacity-80"></div>
+                    <span class="absolute bottom-3 left-3 text-xs font-mono bg-purple-600 text-white px-2.5 py-1 rounded-md">Team Design</span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold text-white text-base">3D Box Projection Challenge</h3>
+                    <p class="text-gray-400 text-xs mt-1">Working together with Rajat and group members on complex 3D view angles.</p>
+                </div>
+            </div>
+
+            <!-- Photo 4: One-on-One CAD Mentorship -->
+            <div onclick="openLightbox('image_10.png', 'CAD Mentorship with Rajat', 'Getting expert advice from mentor Rajat on SolidWorks design features and CAD tools.')" 
+                 class="glass-card rounded-2xl overflow-hidden group cursor-pointer border border-gray-800 hover:border-yellow-500/50 transition-all">
+                <div class="aspect-video overflow-hidden relative">
+                    <img src="image_10.png" 
+                         alt="Darian receiving CAD instruction" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-transparent to-transparent opacity-80"></div>
+                    <span class="absolute bottom-3 left-3 text-xs font-mono bg-yellow-500 text-black font-bold px-2.5 py-1 rounded-md">CAD Instruction</span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold text-white text-base">CAD Software Guidance</h3>
+                    <p class="text-gray-400 text-xs mt-1">Refining models with guidance on extrusions, fillets, and alignments.</p>
+                </div>
+            </div>
+
+            <!-- Photo 5: Snapping Cube Geometry Building -->
+            <div onclick="openLightbox('image_14.png', 'Spatial Cube Assembly', 'Constructing multi-cube structures to analyze isometric viewpoints.')" 
+                 class="glass-card rounded-2xl overflow-hidden group cursor-pointer border border-gray-800 hover:border-green-500/50 transition-all">
+                <div class="aspect-video overflow-hidden relative">
+                    <img src="image_14.png" 
+                         alt="Darian assembling snapping blocks" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-transparent to-transparent opacity-80"></div>
+                    <span class="absolute bottom-3 left-3 text-xs font-mono bg-green-500 text-black font-bold px-2.5 py-1 rounded-md">Cube Assembly</span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold text-white text-base">3D Block Building</h3>
+                    <p class="text-gray-400 text-xs mt-1">Connecting blocks to test spatial visualization and multi-angle views.</p>
+                </div>
+            </div>
+
+            <!-- Photo 6: Focused Grid Sketching -->
+            <div onclick="openLightbox('image_15.png', 'Focused Blueprint Sketching', 'Developing concentration while converting physical models to engineering drawings.')" 
+                 class="glass-card rounded-2xl overflow-hidden group cursor-pointer border border-gray-800 hover:border-orange-500/50 transition-all">
+                <div class="aspect-video overflow-hidden relative">
+                    <img src="image_15.png" 
+                         alt="Darian drawing on blueprint paper" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-transparent to-transparent opacity-80"></div>
+                    <span class="absolute bottom-3 left-3 text-xs font-mono bg-orange-500 text-white px-2.5 py-1 rounded-md">Grid Sketching</span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold text-white text-base">Blueprint Drafting</h3>
+                    <p class="text-gray-400 text-xs mt-1">Mastering precise line work on engineering grid templates.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- STEP 5 & 6: GROWTH & OVERCOMING CHALLENGES -->
+    <section id="growth" class="py-20 px-4 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/60">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            
+            <!-- Step 5: Growth -->
+            <div class="space-y-6">
+                <div>
+                    <div class="text-xs font-mono text-ucRed uppercase tracking-widest mb-2">STEP 5: PROGRESSION</div>
+                    <h2 class="text-3xl font-black text-white">HOW MY WORK IMPROVED</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="glass-card p-6 rounded-2xl border-l-4 border-l-ucRed">
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i data-lucide="trending-up" class="w-5 h-5 text-ucRed"></i> Practice & Persistence
+                        </h3>
+                        <p class="text-gray-400 text-sm mt-2">
+                            My work improved immensely through daily practice in CAD software and getting comfortable with the tools step by step.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border-l-4 border-l-cyberCyan">
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i data-lucide="zap" class="w-5 h-5 text-cyberCyan"></i> What I Can Do Now
+                        </h3>
+                        <p class="text-gray-400 text-sm mt-2">
+                            I can now design full 3D models completely from my own head and turn them into print-ready files!
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border-l-4 border-l-orange-500">
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-orange-400"></i> Skill That Became Easier
+                        </h3>
+                        <p class="text-gray-400 text-sm mt-2">
+                            Navigating SolidWorks interfaces, setting up extrusions, and preparing slicer bed orientations.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Overcoming a Challenge -->
+            <div class="space-y-6">
+                <div>
+                    <div class="text-xs font-mono text-cyberCyan uppercase tracking-widest mb-2">STEP 6: PROBLEM SOLVING</div>
+                    <h2 class="text-3xl font-black text-white">OVERCOMING A CHALLENGE</h2>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl border border-gray-800 space-y-6 relative overflow-hidden">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-500 shrink-0">
+                            <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">What Was Difficult?</h3>
+                            <p class="text-gray-400 text-sm mt-1">
+                                <strong class="text-white">"IMAGINING"</strong> – Visualizing complex 3D shapes in my head before drawing or modeling them in CAD was really challenging at first.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="bg-darkBg p-4 rounded-xl border border-gray-800">
+                            <h4 class="text-xs font-mono text-ucRed uppercase mb-1">How I Solved It</h4>
+                            <p class="text-gray-300 text-xs">"Taking a break when needed, taking a step back, and working in stages."</p>
+                        </div>
+
+                        <div class="bg-darkBg p-4 rounded-xl border border-gray-800">
+                            <h4 class="text-xs font-mono text-cyberCyan uppercase mb-1">Who Helped Me</h4>
+                            <p class="text-gray-300 text-xs"><strong class="text-white">Rajat</strong> (Camp Mentor) helped guide my design thinking!</p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-purple-950/30 border border-purple-500/30">
+                        <h4 class="text-xs font-mono text-purple-400 uppercase mb-1">Lesson Learned</h4>
+                        <p class="text-white text-sm font-semibold">"I can make custom toys, keychains, and physical models from my ideas!"</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- STEP 7, 8 & 10: ACCOMPLISHMENTS, FAVORITES & REFLECTION -->
+    <section id="reflection" class="py-20 px-4 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/60">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <div class="text-xs font-mono text-ucRed uppercase tracking-widest mb-2">STEPS 7, 8 & 10</div>
+            <h2 class="text-3xl sm:text-5xl font-black text-white">ACCOMPLISHMENTS & REFLECTION</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Campus & Favorites -->
+            <div class="glass-card p-8 rounded-3xl space-y-6">
+                <h3 class="text-2xl font-bold text-white flex items-center gap-3">
+                    <i data-lucide="smile" class="w-6 h-6 text-ucRed"></i> Camp Highlights & Favorites
+                </h3>
+
+                <ul class="space-y-4 text-sm">
+                    <li class="flex items-start gap-3 bg-darkBg/60 p-3.5 rounded-xl border border-gray-800">
+                        <i data-lucide="star" class="w-5 h-5 text-yellow-400 shrink-0 mt-0.5"></i>
+                        <div>
+                            <span class="text-gray-400 block text-xs">Favorite Activity</span>
+                            <span class="text-white font-semibold">3D Printing & Slicing Models</span>
+                        </div>
+                    </li>
+
+                    <li class="flex items-start gap-3 bg-darkBg/60 p-3.5 rounded-xl border border-gray-800">
+                        <i data-lucide="map-pin" class="w-5 h-5 text-ucRed shrink-0 mt-0.5"></i>
+                        <div>
+                            <span class="text-gray-400 block text-xs">UC Campus Memory</span>
+                            <span class="text-white font-semibold">Walking around campus, going to classes, and visiting the Rec Center!</span>
+                        </div>
+                    </li>
+
+                    <li class="flex items-start gap-3 bg-darkBg/60 p-3.5 rounded-xl border border-gray-800">
+                        <i data-lucide="rocket" class="w-5 h-5 text-cyberCyan shrink-0 mt-0.5"></i>
+                        <div>
+                            <span class="text-gray-400 block text-xs">Next STEM Goal</span>
+                            <span class="text-white font-semibold">Actually printing out my CAD models on a physical 3D printer!</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Sentence Completion Reflection -->
+            <div class="glass-card p-8 rounded-3xl space-y-4">
+                <h3 class="text-2xl font-bold text-white flex items-center gap-3">
+                    <i data-lucide="message-square" class="w-6 h-6 text-cyberCyan"></i> Final Reflection
+                </h3>
+
+                <div class="space-y-3 font-mono text-xs">
+                    <div class="p-3 rounded-xl bg-darkBg border border-gray-800">
+                        <span class="text-ucRed">Before camp:</span> <span class="text-gray-300">I thought STEM was mostly theoretical formulas.</span>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-darkBg border border-gray-800">
+                        <span class="text-cyberCyan">During camp:</span> <span class="text-gray-300">I learned hands-on 3D designing and CAD software.</span>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-darkBg border border-gray-800">
+                        <span class="text-green-400">I am proud that:</span> <span class="text-gray-300">I created my own original 3D Fish project from scratch!</span>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-darkBg border border-gray-800">
+                        <span class="text-orange-400">One challenge I overcome:</span> <span class="text-gray-300">Visualizing 3D models in my head before modeling.</span>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-darkBg border border-gray-800">
+                        <span class="text-purple-400">In the future:</span> <span class="text-gray-300">I would like to print more CAD designs and get a job in engineering!</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- STEP 11: INTERACTIVE REVIEW CHECKLIST -->
+    <section id="review" class="py-20 px-4 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/60">
+        <div class="glass-card rounded-3xl p-8 lg:p-12 border border-gray-800 relative overflow-hidden">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
+                <div>
+                    <span class="text-xs font-mono text-ucRed uppercase tracking-widest">STEP 11: QUALITY CHECK</span>
+                    <h2 class="text-3xl font-black text-white">PORTFOLIO REVIEW CHECKLIST</h2>
+                </div>
+                
+                <!-- Progress Circle -->
+                <div class="flex items-center gap-4 bg-darkBg/80 px-6 py-3 rounded-2xl border border-gray-800">
+                    <div>
+                        <span class="text-xs text-gray-400 font-mono block">COMPLETION</span>
+                        <span id="checklist-count" class="text-2xl font-black text-ucRed font-mono">8/8</span>
+                    </div>
+                    <div class="w-10 h-10 rounded-full border-4 border-ucRed flex items-center justify-center text-white font-bold text-xs">
+                        100%
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="checklist-grid">
+                <!-- Checkboxes populated via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- STEP 12: PRESENTATION PREP -->
+    <section id="presentation" class="py-20 px-4 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/60 text-center">
+        <div class="max-w-3xl mx-auto space-y-6">
+            <span class="px-3 py-1 rounded-full bg-ucRed/20 text-ucRed font-mono text-xs border border-ucRed/30">
+                STEP 12: PRESENT YOUR WORK
+            </span>
+            <h2 class="text-4xl font-black text-white">READY FOR PRESENTATION</h2>
+            <p class="text-gray-400 text-sm leading-relaxed">
+                When presenting to camp staff, classmates, and family, keep these key points in mind:
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 text-left pt-4 font-mono text-xs">
+                <div class="bg-darkCard p-4 rounded-xl border border-gray-800">
+                    <span class="text-ucRed font-bold block mb-1">1. Favorite Project</span>
+                    <span class="text-gray-300">My 3D Fish created in SolidWorks.</span>
+                </div>
+                <div class="bg-darkCard p-4 rounded-xl border border-gray-800">
+                    <span class="text-cyberCyan font-bold block mb-1">2. Key Skill</span>
+                    <span class="text-gray-300">3D Designing & Slicer setup.</span>
+                </div>
+                <div class="bg-darkCard p-4 rounded-xl border border-gray-800">
+                    <span class="text-yellow-400 font-bold block mb-1">3. Challenge</span>
+                    <span class="text-gray-300">Imagining 3D shapes mentally.</span>
+                </div>
+                <div class="bg-darkCard p-4 rounded-xl border border-gray-800">
+                    <span class="text-green-400 font-bold block mb-1">4. Accomplishment</span>
+                    <span class="text-gray-300">Complete custom CAD model.</span>
+                </div>
+                <div class="bg-darkCard p-4 rounded-xl border border-gray-800">
+                    <span class="text-purple-400 font-bold block mb-1">5. Camp Highlight</span>
+                    <span class="text-gray-300">UC campus walk & rec center.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 border-t border-gray-800/80 text-center text-xs font-mono text-gray-500">
+        <p>DARIAN'S STEM SUMMER CAMP PORTFOLIO • UNIVERSITY OF CINCINNATI 2026</p>
+    </footer>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightbox" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6">
+        <div onclick="event.stopPropagation()" class="max-w-4xl w-full glass-card rounded-3xl overflow-hidden border border-gray-700 relative max-h-[90vh] flex flex-col">
+            <button onclick="closeLightbox()" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-darkBg/90 text-white flex items-center justify-center hover:bg-ucRed transition-colors z-20 border border-gray-700">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="flex-1 overflow-hidden bg-black flex items-center justify-center min-h-[250px] sm:min-h-[350px]">
+                <img id="lightbox-img" src="" alt="" class="max-h-[65vh] sm:max-h-[70vh] w-auto object-contain">
+            </div>
+            <div class="p-4 sm:p-6 bg-darkCard">
+                <h3 id="lightbox-title" class="text-xl sm:text-2xl font-bold text-white"></h3>
+                <p id="lightbox-desc" class="text-gray-400 text-xs sm:text-sm mt-1 sm:mt-2"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Drawer Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // View Switcher for 3D Fish Project
+        function switchView(view) {
+            const slicer = document.getElementById('view-slicer');
+            const cad = document.getElementById('view-cad');
+            const threeView = document.getElementById('view-3d');
+
+            const btnSlicer = document.getElementById('btn-slicer');
+            const btnCad = document.getElementById('btn-cad');
+            const btn3d = document.getElementById('btn-3d');
+
+            // Reset visibilities
+            slicer.classList.add('hidden');
+            cad.classList.add('hidden');
+            threeView.classList.add('hidden');
+
+            // Reset button styles
+            [btnSlicer, btnCad, btn3d].forEach(btn => {
+                btn.className = "px-3 sm:px-4 py-2 rounded-xl text-xs font-bold text-gray-400 hover:text-white transition-all flex-1 sm:flex-initial";
+            });
+
+            if (view === 'slicer') {
+                slicer.classList.remove('hidden');
+                btnSlicer.className = "px-3 sm:px-4 py-2 rounded-xl text-xs font-bold text-white bg-ucRed transition-all flex-1 sm:flex-initial";
+            } else if (view === 'cad') {
+                cad.classList.remove('hidden');
+                btnCad.className = "px-3 sm:px-4 py-2 rounded-xl text-xs font-bold text-white bg-ucRed transition-all flex-1 sm:flex-initial";
+            } else if (view === '3d') {
+                threeView.classList.remove('hidden');
+                btn3d.className = "px-3 sm:px-4 py-2 rounded-xl text-xs font-bold text-white bg-ucRed transition-all flex-1 sm:flex-initial flex items-center justify-center gap-1";
+                if(!threeInitialized) initThreeJS();
+            }
+        }
+
+        // Three.js Interactive 3D Fish Generator
+        let threeInitialized = false;
+        function initThreeJS() {
+            threeInitialized = true;
+            const container = document.getElementById('three-canvas-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+            
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0x00f0ff, 1);
+            dirLight.position.set(5, 5, 5);
+            scene.add(dirLight);
+
+            const redLight = new THREE.DirectionalLight(0xe00122, 0.8);
+            redLight.position.set(-5, -5, -2);
+            scene.add(redLight);
+
+            // Fish Mesh Group
+            const fishGroup = new THREE.Group();
+
+            // Fish Body (Ellipsoid geometry)
+            const bodyGeo = new THREE.SphereGeometry(1.5, 32, 16);
+            bodyGeo.scale(1.8, 1, 0.6);
+            const bodyMat = new THREE.MeshStandardMaterial({ 
+                color: 0x0088ff, 
+                roughness: 0.2, 
+                metalness: 0.5 
+            });
+            const body = new THREE.Mesh(bodyGeo, bodyMat);
+            fishGroup.add(body);
+
+            // Tail Fin
+            const tailGeo = new THREE.ConeGeometry(1, 1.5, 3);
+            tailGeo.rotateZ(-Math.PI / 2);
+            const tailMat = new THREE.MeshStandardMaterial({ color: 0xe00122 });
+            const tail = new THREE.Mesh(tailGeo, tailMat);
+            tail.position.set(-2.8, 0, 0);
+            fishGroup.add(tail);
+
+            // Dorsal Fin
+            const dorsalGeo = new THREE.ConeGeometry(0.8, 1.2, 3);
+            const dorsalMat = new THREE.MeshStandardMaterial({ color: 0xe00122 });
+            const dorsal = new THREE.Mesh(dorsalGeo, dorsalMat);
+            dorsal.position.set(0.2, 1.3, 0);
+            dorsal.rotation.z = -0.3;
+            fishGroup.add(dorsal);
+
+            // Eyes
+            const eyeGeo = new THREE.SphereGeometry(0.25, 16, 16);
+            const eyeMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+            const eyeL = new THREE.Mesh(eyeGeo, eyeMat);
+            eyeL.position.set(1.5, 0.3, 0.6);
+            const eyeR = new THREE.Mesh(eyeGeo, eyeMat);
+            eyeR.position.set(1.5, 0.3, -0.6);
+            fishGroup.add(eyeL);
+            fishGroup.add(eyeR);
+
+            scene.add(fishGroup);
+            camera.position.z = 6;
+
+            // Mouse Drag Controls
+            let isDragging = false;
+            let previousMousePosition = { x: 0, y: 0 };
+
+            container.addEventListener('mousedown', () => isDragging = true);
+            window.addEventListener('mouseup', () => isDragging = false);
+
+            container.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const deltaMove = {
+                    x: e.clientX - previousMousePosition.x,
+                    y: e.clientY - previousMousePosition.y
+                };
+
+                fishGroup.rotation.y += deltaMove.x * 0.01;
+                fishGroup.rotation.x += deltaMove.y * 0.01;
+
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+            });
+
+            container.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            });
+            window.addEventListener('touchend', () => isDragging = false);
+            container.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                const deltaMove = {
+                    x: e.touches[0].clientX - previousMousePosition.x,
+                    y: e.touches[0].clientY - previousMousePosition.y
+                };
+                fishGroup.rotation.y += deltaMove.x * 0.01;
+                fishGroup.rotation.x += deltaMove.y * 0.01;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            });
+
+            // Animation Loop
+            function animate() {
+                requestAnimationFrame(animate);
+                if (!isDragging) {
+                    fishGroup.rotation.y += 0.005;
+                }
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+
+        // Lightbox Functions
+        function openLightbox(src, title, desc) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-title').innerText = title;
+            document.getElementById('lightbox-desc').innerText = desc;
+            document.getElementById('lightbox').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+
+        // Step 11 Review Checklist Generator
+        const checklistItems = [
+            "My name (Darian) and details are included.",
+            "I added pictures and screenshots of my work.",
+            "I explained what I learned during camp.",
+            "I shared at least one challenge and how I solved it.",
+            "I described my accomplishments and favorite moments.",
+            "I shared what I enjoyed about UC campus.",
+            "My portfolio is organized and easy to navigate.",
+            "I checked my spelling and verified my project answers."
+        ];
+
+        const checklistGrid = document.getElementById('checklist-grid');
+        checklistItems.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = "flex items-center gap-3 bg-darkBg/80 p-4 rounded-xl border border-gray-800 text-sm text-gray-200 cursor-pointer select-none hover:border-ucRed/40 transition-colors";
+            div.innerHTML = `
+                <input type="checkbox" checked id="chk-${index}" class="w-5 h-5 accent-ucRed rounded cursor-pointer">
+                <label for="chk-${index}" class="cursor-pointer">${item}</label>
+            `;
+            checklistGrid.appendChild(div);
+        });
+    </script>
+</body>
+</html>
